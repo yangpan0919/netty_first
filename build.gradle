@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.google.protobuf' version '0.8.8'
 }
 
 group 'com.study'
@@ -15,11 +16,38 @@ repositories {
 dependencies {
 //    testCompile group: 'junit', name: 'junit', version: '4.12'
 //    compile group: 'io.netty', name: 'netty-all', version: '4.1.36.Final'
+    // https://mvnrepository.com/artifact/org.apache.thrift/libthrift
+//    compile group: 'org.apache.thrift', name: 'libthrift', version: '0.12.0'
+
     compile(
             "io.netty:netty-all:4.1.10.Final",
             "com.google.protobuf:protobuf-java:3.8.0",
-            "com.google.protobuf:protobuf-java-util:3.8.0"
+            "com.google.protobuf:protobuf-java-util:3.8.0",
+            "org.apache.thrift:libthrift:0.12.0",
+            "io.grpc:grpc-netty-shaded:1.22.1",
+            "io.grpc:grpc-protobuf:1.22.1",
+            "io.grpc:grpc-stub:1.22.1"
             
     )
     
+}
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.7.1"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.22.1'
+        }
+    }
+    //修改generateProto 的 java文件生成目录   默认build
+    generateProtoTasks.generatedFilesBaseDir = "src"
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {
+                //修改generateProto 的 java文件生成目录
+                setOutputSubDir 'java'
+            }
+        }
+    }
 }
