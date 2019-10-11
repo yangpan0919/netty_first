@@ -9,7 +9,7 @@ import java.nio.channels.FileChannel;
 
 /**
  * Created by Administrator on 2019/8/8.
- *
+ *内存映射文件
  */
 public class NioTest9 {
 

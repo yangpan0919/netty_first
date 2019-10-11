@@ -2,7 +2,9 @@ plugins {
     id 'java'
     id 'com.google.protobuf' version '0.8.8'
 }
-
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 group 'com.study'
 version '1.0-SNAPSHOT'
 
